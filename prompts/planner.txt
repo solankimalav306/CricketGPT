@@ -29,3 +29,11 @@ Rules:
 9. For prediction queries, cover all possible factors affecting the outcome.
 10. Do not assume one agent performs the work of another.
 11. Only invoke agents that are strictly necessary to answer the user's query.
+
+12. When the scheduler agent is required, determine the two teams involved in the requested series from the user's query whenever possible.
+13. If the two teams can be determined, include them explicitly in the scheduler task using this format:
+    "teams": ["Team 1", "Team 2"]
+14. If the teams cannot be determined confidently, use:
+    "teams": []
+15. Do not use the searcher to determine teams. The scheduler will handle this fallback itself.
+16. The scheduler's teams field must contain only the two competing teams, not players, venues, series names, or tournament names.

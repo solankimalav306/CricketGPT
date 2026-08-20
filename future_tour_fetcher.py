@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
-import json
 import re
 
 BASE_URL = "https://www.cricbuzz.com"
@@ -11,102 +10,183 @@ headers = {
     "User-Agent": "Mozilla/5.0"
 }
 
-session = requests.Session()
-session.headers.update(headers)
 
-try:
-    response = session.get(URL, timeout=30)
-    print(f"Status: {response.status_code}")
+def get_future_series():
 
-except requests.exceptions.RequestException as e:
-    print(f"FAILED -> {e}")
-    exit()
+    session = requests.Session()
+    session.headers.update(headers)
 
+    try:
+        response = session.get(
+            URL,
+            timeout=30
+        )
 
-soup = BeautifulSoup(response.text, "html.parser")
+        print(
+            f"[Future Tour Fetcher] Status: "
+            f"{response.status_code}"
+        )
 
-# --------------------------------------------------
-# Find the schedule table using "Month"
-# --------------------------------------------------
+    except requests.exceptions.RequestException as e:
 
-month = soup.find(
-    string=re.compile(r"^Month$", re.I)
-)
+        print(
+            f"[Future Tour Fetcher] FAILED -> {e}"
+        )
 
-if not month:
-    print("Schedule table not found")
-    exit()
-
-
-# Move up to the table container
-container = month
-
-for _ in range(3):
-    container = container.parent
+        return []
 
 
-# --------------------------------------------------
-# Extract series
-# --------------------------------------------------
-
-future_series = []
-seen_urls = set()
-
-for a in container.find_all("a", href=True):
-
-    href = a["href"]
-    text = a.get_text(" ", strip=True)
-
-    if not text:
-        continue
-
-    if "/cricket-series/" not in href:
-        continue
-
-    # These are the actual schedule rows
-    if not href.rstrip("/").endswith("/matches"):
-        continue
-
-    url = urljoin(BASE_URL, href)
-
-    if url in seen_urls:
-        continue
-
-    seen_urls.add(url)
-
-    # ----------------------------------------------
-    # Extract series ID
-    # ----------------------------------------------
-
-    match = re.search(
-        r"/cricket-series/(\d+)/",
-        url
+    soup = BeautifulSoup(
+        response.text,
+        "html.parser"
     )
 
-    if not match:
-        continue
 
-    series_id = match.group(1)
+    # --------------------------------------------------
+    # Find schedule table
+    # --------------------------------------------------
 
-    # Clean text
-    text = " ".join(text.split())
+    month = soup.find(
+        string=re.compile(
+            r"^Month$",
+            re.I
+        )
+    )
 
-    future_series.append({
-        "series_id": series_id,
-        "name": text,
-        "url": url
-    })
+    if not month:
+
+        print(
+            "[Future Tour Fetcher] "
+            "Schedule table not found"
+        )
+
+        return []
 
 
-# --------------------------------------------------
-# Output
-# --------------------------------------------------
+    container = month
 
-print("\n" + "=" * 100)
-print(f"Total future/current series: {len(future_series)}")
+    for _ in range(3):
 
-print(json.dumps(
-    future_series,
-    indent=2,
-    ensure_ascii=False
-))
+        container = container.parent
+
+
+    # --------------------------------------------------
+    # Extract series
+    # --------------------------------------------------
+
+    future_series = []
+    seen_urls = set()
+
+
+    for a in container.find_all(
+        "a",
+        href=True
+    ):
+
+        href = a["href"]
+
+        text = a.get_text(
+            " ",
+            strip=True
+        )
+
+
+        if not text:
+            continue
+
+
+        if "/cricket-series/" not in href:
+            continue
+
+
+        if not href.rstrip(
+            "/"
+        ).endswith("/matches"):
+
+            continue
+
+
+        url = urljoin(
+            BASE_URL,
+            href
+        )
+
+
+        if url in seen_urls:
+            continue
+
+        seen_urls.add(url)
+
+
+        # --------------------------------------------------
+        # Series ID
+        # --------------------------------------------------
+
+        match = re.search(
+            r"/cricket-series/(\d+)/",
+            url
+        )
+
+        if not match:
+            continue
+
+
+        series_id = int(
+            match.group(1)
+        )
+
+
+        # --------------------------------------------------
+        # Clean name
+        # --------------------------------------------------
+
+        name = " ".join(
+            text.split()
+        )
+
+
+        future_series.append({
+
+            "seriesId": series_id,
+
+            "name": name,
+
+            "url": url
+
+        })
+
+
+    return future_series
+
+
+# ==================================================
+# TEST
+# ==================================================
+
+if __name__ == "__main__":
+
+    series = get_future_series()
+
+    print(
+        "\n" + "=" * 100
+    )
+
+    print(
+        f"Total future/current series: "
+        f"{len(series)}"
+    )
+
+    print(
+        "=" * 100
+    )
+
+    for item in series:
+
+        print(
+            f"{item['seriesId']} | "
+            f"{item['name']}"
+        )
+
+        print(
+            item["url"]
+        )

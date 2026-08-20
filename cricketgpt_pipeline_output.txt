@@ -1,0 +1,1178 @@
+====================================================================================================
+CRICKETGPT PIPELINE OUTPUT
+====================================================================================================
+
+====================================================================================================
+1. PLANNER OUTPUT
+====================================================================================================
+
+Intent:
+prediction
+
+Plan:
+[
+  {
+    "agent": "scheduler",
+    "task": "Find upcoming match schedule and fixtures for Sri Lanka series",
+    "teams": [
+      "India",
+      "Sri Lanka"
+    ]
+  },
+  {
+    "agent": "player agent",
+    "task": "Analyze Ravindra Jadeja's recent bowling form and statistics"
+  },
+  {
+    "agent": "matchup agent",
+    "task": "Analyze historical player-vs-player matchups between Ravindra Jadeja and Sri Lankan batsmen to identify the toughest opponent"
+  }
+]
+
+====================================================================================================
+2. SCHEDULER OUTPUT
+====================================================================================================
+{
+  "seriesId": 12687,
+  "squads": {
+    "5": {
+      "squadId": 125071,
+      "teamId": 5,
+      "teamName": "Sri Lanka",
+      "players": [
+        {
+          "name": "BATTERS",
+          "isHeader": true
+        },
+        {
+          "id": "13884",
+          "name": "Pasindu Sooriyabandara",
+          "role": "Batsman",
+          "imageId": 174146,
+          "battingStyle": "Right-hand bat"
+        },
+        {
+          "name": "ALL ROUNDERS",
+          "isHeader": true
+        },
+        {
+          "id": "7872",
+          "name": "Dhananjaya de Silva",
+          "captain": true,
+          "role": "Batting Allrounder",
+          "imageId": 351878,
+          "battingStyle": "Right-hand bat",
+          "bowlingStyle": "Right-arm offbreak"
+        },
+        {
+          "id": "10940",
+          "name": "Kamindu Mendis",
+          "role": "Batting Allrounder",
+          "imageId": 847173,
+          "battingStyle": "Left-hand bat",
+          "bowlingStyle": "Right-arm offbreak"
+        },
+        {
+          "id": "9502",
+          "name": "Ramesh Mendis",
+          "role": "Bowling Allrounder",
+          "imageId": 174146,
+          "battingStyle": "Right-hand bat",
+          "bowlingStyle": "Right-arm offbreak"
+        },
+        {
+          "id": "1473644",
+          "name": "Keshara Nuwantha",
+          "role": "Bowling Allrounder",
+          "imageId": 174146,
+          "battingStyle": "Right-hand bat",
+          "bowlingStyle": "Right-arm offbreak"
+        },
+        {
+          "id": "13930",
+          "name": "Sonal Dinusha",
+          "role": "Bowling Allrounder",
+          "imageId": 174146,
+          "battingStyle": "Left-hand bat",
+          "bowlingStyle": "Left-arm orthodox"
+        },
+        {
+          "id": "39678",
+          "name": "Milan Priyanath Rathnayake",
+          "role": "Bowling Allrounder",
+          "imageId": 717700,
+          "battingStyle": "Left-hand bat",
+          "bowlingStyle": "Right-arm fast-medium"
+        },
+        {
+          "name": "WICKET KEEPERS",
+          "isHeader": true
+        },
+        {
+          "id": "15586",
+          "name": "Lahiru Udara",
+          "role": "WK-Batsman",
+          "imageId": 717709,
+          "battingStyle": "Right-hand bat"
+        },
+        {
+          "id": "13236",
+          "name": "Nishan Madushka",
+          "role": "WK-Batsman",
+          "imageId": 155859,
+          "battingStyle": "Right-hand bat"
+        },
+        {
+          "id": "6245",
+          "name": "Dinesh Chandimal",
+          "role": "WK-Batsman",
+          "imageId": 582334,
+          "battingStyle": "Right-hand bat",
+          "bowlingStyle": "Right-arm offbreak"
+        },
+        {
+          "id": "7884",
+          "name": "Niroshan Dickwella",
+          "role": "WK-Batsman",
+          "keeper": true,
+          "imageId": 146429,
+          "battingStyle": "Left-hand bat"
+        },
+        {
+          "name": "BOWLERS",
+          "isHeader": true
+        },
+        {
+          "id": "10928",
+          "name": "Lahiru Kumara",
+          "role": "Bowler",
+          "imageId": 351887,
+          "battingStyle": "Left-hand bat",
+          "bowlingStyle": "Right-arm fast-medium"
+        },
+        {
+          "id": "8413",
+          "name": "Vishwa Fernando",
+          "role": "Bowler",
+          "imageId": 165706,
+          "battingStyle": "Right-hand bat",
+          "bowlingStyle": "Left-arm fast-medium"
+        },
+        {
+          "id": "11498",
+          "name": "Prabath Jayasuriya",
+          "role": "Bowler",
+          "imageId": 582353,
+          "battingStyle": "Right-hand bat",
+          "bowlingStyle": "Left-arm orthodox"
+        },
+        {
+          "id": "10938",
+          "name": "Asitha Fernando",
+          "role": "Bowler",
+          "imageId": 582352,
+          "battingStyle": "Right-hand bat",
+          "bowlingStyle": "Right-arm fast-medium"
+        },
+        {
+          "id": "15067",
+          "name": "Dilshan Madushanka",
+          "role": "Bowler",
+          "imageId": 351880,
+          "battingStyle": "Right-hand bat",
+          "bowlingStyle": "Left-arm fast-medium"
+        }
+      ]
+    },
+    "2": {
+      "squadId": 125081,
+      "teamId": 2,
+      "teamName": "India",
+      "players": [
+        {
+          "name": "BATTERS",
+          "isHeader": true
+        },
+        {
+          "id": "11808",
+          "name": "Shubman Gill",
+          "captain": true,
+          "role": "Batsman",
+          "imageId": 616515,
+          "battingStyle": "Right-hand bat",
+          "bowlingStyle": "Right-arm offbreak"
+        },
+        {
+          "id": "13940",
+          "name": "Yashasvi Jaiswal",
+          "role": "Batsman",
+          "imageId": 591942,
+          "battingStyle": "Left-hand bat",
+          "bowlingStyle": "Right-arm legbreak"
+        },
+        {
+          "id": "13088",
+          "name": "Devdutt Padikkal",
+          "role": "Batsman",
+          "imageId": 591960,
+          "battingStyle": "Left-hand bat",
+          "bowlingStyle": "Right-arm offbreak"
+        },
+        {
+          "id": "9429",
+          "name": "Sarfaraz Khan",
+          "role": "Batsman",
+          "imageId": 591955,
+          "battingStyle": "Right-hand bat",
+          "bowlingStyle": "Right-arm legbreak"
+        },
+        {
+          "name": "ALL ROUNDERS",
+          "isHeader": true
+        },
+        {
+          "id": "587",
+          "name": "Ravindra Jadeja",
+          "role": "Bowling Allrounder",
+          "imageId": 616520,
+          "battingStyle": "Left-hand bat",
+          "bowlingStyle": "Left-arm orthodox"
+        },
+        {
+          "id": "14596",
+          "name": "Manav Suthar",
+          "role": "Bowling Allrounder",
+          "imageId": 1003997,
+          "battingStyle": "Left-hand bat",
+          "bowlingStyle": "Left-arm orthodox"
+        },
+        {
+          "id": "10285",
+          "name": "Saransh Jain",
+          "role": "Bowling Allrounder",
+          "imageId": 174146,
+          "battingStyle": "Left-hand bat",
+          "bowlingStyle": "Right-arm offbreak"
+        },
+        {
+          "name": "WICKET KEEPERS",
+          "isHeader": true
+        },
+        {
+          "id": "8733",
+          "name": "KL Rahul",
+          "role": "WK-Batsman",
+          "imageId": 616523,
+          "battingStyle": "Right-hand bat"
+        },
+        {
+          "id": "10744",
+          "name": "Rishabh Pant",
+          "role": "WK-Batsman",
+          "imageId": 616524,
+          "battingStyle": "Left-hand bat"
+        },
+        {
+          "id": "14691",
+          "name": "Dhruv Jurel",
+          "role": "WK-Batsman",
+          "imageId": 591954,
+          "battingStyle": "Right-hand bat"
+        },
+        {
+          "name": "BOWLERS",
+          "isHeader": true
+        },
+        {
+          "id": "8292",
+          "name": "Kuldeep Yadav",
+          "role": "Bowler",
+          "imageId": 846039,
+          "battingStyle": "Left-hand bat",
+          "bowlingStyle": "Left-arm wrist-spin"
+        },
+        {
+          "id": "10808",
+          "name": "Mohammed Siraj",
+          "role": "Bowler",
+          "imageId": 591952,
+          "battingStyle": "Right-hand bat",
+          "bowlingStyle": "Right-arm fast"
+        },
+        {
+          "id": "10551",
+          "name": "Prasidh Krishna",
+          "role": "Bowler",
+          "imageId": 591958,
+          "battingStyle": "Right-hand bat",
+          "bowlingStyle": "Right-arm fast"
+        },
+        {
+          "id": "22141",
+          "name": "Gurnoor Brar",
+          "role": "Bowler",
+          "imageId": 1003995,
+          "battingStyle": "Left-hand bat",
+          "bowlingStyle": "Right-arm fast"
+        },
+        {
+          "id": "14179",
+          "name": "Auqib Nabi",
+          "role": "Bowler",
+          "imageId": 174146,
+          "battingStyle": "Right-hand bat",
+          "bowlingStyle": "Right-arm medium"
+        }
+      ]
+    },
+    "365": {
+      "squadId": 125091,
+      "teamId": 365,
+      "teamName": "Sri Lanka Cricket XI",
+      "players": [
+        {
+          "name": "BATTERS",
+          "isHeader": true
+        },
+        {
+          "id": "15068",
+          "name": "Ravindu Rasantha",
+          "role": "Batsman",
+          "imageId": 174146,
+          "battingStyle": "Right-hand bat",
+          "bowlingStyle": "Right-arm offbreak"
+        },
+        {
+          "id": "15081",
+          "name": "Pavan Rathnayake",
+          "role": "Batsman",
+          "imageId": 847149,
+          "battingStyle": "Right-hand bat"
+        },
+        {
+          "id": "15424",
+          "name": "Ahan Wickramasinghe",
+          "role": "Batsman",
+          "imageId": 174146,
+          "battingStyle": "Right-hand bat"
+        },
+        {
+          "id": "13237",
+          "name": "Nipun Dhananjaya",
+          "role": "Batsman",
+          "imageId": 174146,
+          "battingStyle": "Left-hand bat",
+          "bowlingStyle": "Right-arm offbreak"
+        },
+        {
+          "id": "47070",
+          "name": "Asanka Manoj",
+          "role": "Batsman",
+          "imageId": 174146,
+          "battingStyle": "Right-hand bat"
+        },
+        {
+          "name": "ALL ROUNDERS",
+          "isHeader": true
+        },
+        {
+          "id": "15066",
+          "name": "Dilum Sudeera",
+          "role": "Batting Allrounder",
+          "imageId": 174146,
+          "battingStyle": "Right-hand bat",
+          "bowlingStyle": "Left-arm orthodox"
+        },
+        {
+          "name": "WICKET KEEPERS",
+          "isHeader": true
+        },
+        {
+          "id": "22671",
+          "name": "Anjala Bandara",
+          "role": "WK-Batsman",
+          "imageId": 174146,
+          "battingStyle": "Left-hand bat"
+        },
+        {
+          "name": "BOWLERS",
+          "isHeader": true
+        },
+        {
+          "id": "41309",
+          "name": "Isitha Wijesundera",
+          "role": "Bowler",
+          "imageId": 174146,
+          "battingStyle": "Left-hand bat",
+          "bowlingStyle": "Right-arm fast-medium"
+        }
+      ]
+    }
+  },
+  "matches": [
+    {
+      "matchDetailsMap": {
+        "key": "Fri, 07 Aug 2026 - Sun, 09 Aug 2026",
+        "match": [
+          {
+            "matchInfo": {
+              "matchId": 169497,
+              "seriesId": 12687,
+              "seriesName": "India tour of Sri Lanka 2026",
+              "matchDesc": "3-Day Warm-up Match",
+              "matchFormat": "TEST",
+              "startDate": "1786077000000",
+              "endDate": "1786275000000",
+              "state": "Complete",
+              "status": "India won by 6 wkts",
+              "team1": {
+                "teamId": 365,
+                "teamName": "Sri Lanka Cricket XI",
+                "teamSName": "SLCXI",
+                "imageId": 776268
+              },
+              "team2": {
+                "teamId": 2,
+                "teamName": "India",
+                "teamSName": "IND",
+                "imageId": 776162
+              },
+              "venueInfo": {
+                "id": 274,
+                "ground": "Nondescripts Cricket Club Ground",
+                "city": "Colombo",
+                "timezone": "+05:30"
+              },
+              "currBatTeamId": 2,
+              "seriesStartDt": "1786060800000",
+              "seriesEndDt": "1787961600000",
+              "isTimeAnnounced": true,
+              "isLiveStreamEnabled": true
+            },
+            "matchScore": {
+              "team1Score": {
+                "inngs1": {
+                  "inningsId": 1,
+                  "runs": 363,
+                  "wickets": 8,
+                  "overs": 90,
+                  "isDeclared": true
+                },
+                "inngs2": {
+                  "inningsId": 3,
+                  "runs": 200,
+                  "wickets": 6,
+                  "overs": 45,
+                  "isDeclared": true
+                }
+              },
+              "team2Score": {
+                "inngs1": {
+                  "inningsId": 2,
+                  "runs": 357,
+                  "wickets": 6,
+                  "overs": 90,
+                  "isDeclared": true
+                },
+                "inngs2": {
+                  "inningsId": 4,
+                  "runs": 214,
+                  "wickets": 4,
+                  "overs": 45
+                }
+              }
+            }
+          }
+        ],
+        "seriesId": 12687
+      }
+    },
+    {
+      "matchDetailsMap": {
+        "key": "Sat, 15 Aug 2026 - Wed, 19 Aug 2026",
+        "match": [
+          {
+            "matchInfo": {
+              "matchId": 163013,
+              "seriesId": 12687,
+              "seriesName": "India tour of Sri Lanka 2026",
+              "matchDesc": "1st Test",
+              "matchFormat": "TEST",
+              "startDate": "1786768200000",
+              "endDate": "1787139000000",
+              "state": "Complete",
+              "status": "India won by 165 runs",
+              "team1": {
+                "teamId": 2,
+                "teamName": "India",
+                "teamSName": "IND",
+                "imageId": 776162
+              },
+              "team2": {
+                "teamId": 5,
+                "teamName": "Sri Lanka",
+                "teamSName": "SL",
+                "imageId": 776254
+              },
+              "venueInfo": {
+                "id": 113,
+                "ground": "Galle International Stadium",
+                "city": "Galle",
+                "timezone": "+05:30"
+              },
+              "currBatTeamId": 2,
+              "seriesStartDt": "1786060800000",
+              "seriesEndDt": "1787961600000",
+              "isTimeAnnounced": true,
+              "isLiveStreamEnabled": true
+            },
+            "matchScore": {
+              "team1Score": {
+                "inngs1": {
+                  "inningsId": 1,
+                  "runs": 462,
+                  "wickets": 10,
+                  "overs": 116.4
+                },
+                "inngs2": {
+                  "inningsId": 3,
+                  "runs": 193,
+                  "wickets": 10,
+                  "overs": 48.5
+                }
+              },
+              "team2Score": {
+                "inngs1": {
+                  "inningsId": 2,
+                  "runs": 284,
+                  "wickets": 10,
+                  "overs": 79.4
+                },
+                "inngs2": {
+                  "inningsId": 4,
+                  "runs": 206,
+                  "wickets": 10,
+                  "overs": 77.4
+                }
+              }
+            }
+          }
+        ],
+        "seriesId": 12687
+      }
+    },
+    {
+      "matchDetailsMap": {
+        "key": "Sun, 23 Aug 2026 - Thu, 27 Aug 2026",
+        "match": [
+          {
+            "matchInfo": {
+              "matchId": 163017,
+              "seriesId": 12687,
+              "seriesName": "India tour of Sri Lanka 2026",
+              "matchDesc": "2nd Test",
+              "matchFormat": "TEST",
+              "startDate": "1787459400000",
+              "endDate": "1787830200000",
+              "state": "Upcoming",
+              "status": "Match starts at Aug 23, 04:30 GMT",
+              "team1": {
+                "teamId": 5,
+                "teamName": "Sri Lanka",
+                "teamSName": "SL",
+                "imageId": 776254
+              },
+              "team2": {
+                "teamId": 2,
+                "teamName": "India",
+                "teamSName": "IND",
+                "imageId": 776162
+              },
+              "venueInfo": {
+                "id": 14,
+                "ground": "Sinhalese Sports Club",
+                "city": "Colombo",
+                "timezone": "+05:30"
+              },
+              "seriesStartDt": "1786060800000",
+              "seriesEndDt": "1787961600000",
+              "isTimeAnnounced": true,
+              "isLiveStreamEnabled": true
+            }
+          }
+        ],
+        "seriesId": 12687
+      }
+    }
+  ]
+}
+
+====================================================================================================
+3. PLAYER AGENT OUTPUT
+====================================================================================================
+[
+  {
+    "template": "P3",
+    "player": "Ravindra Jadeja",
+    "limit": 10
+  },
+  {
+    "template": "P4",
+    "player": "Ravindra Jadeja"
+  }
+]
+
+====================================================================================================
+4. MATCHUP AGENT OUTPUT
+====================================================================================================
+[
+  {
+    "template": "M2",
+    "bowler": "Ravindra Jadeja",
+    "batter": "Pasindu Sooriyabandara",
+    "bowler_team": "India",
+    "batter_team": "Sri Lanka"
+  },
+  {
+    "template": "M2",
+    "bowler": "Ravindra Jadeja",
+    "batter": "Dhananjaya de Silva",
+    "bowler_team": "India",
+    "batter_team": "Sri Lanka"
+  },
+  {
+    "template": "M2",
+    "bowler": "Ravindra Jadeja",
+    "batter": "Kamindu Mendis",
+    "bowler_team": "India",
+    "batter_team": "Sri Lanka"
+  },
+  {
+    "template": "M2",
+    "bowler": "Ravindra Jadeja",
+    "batter": "Ramesh Mendis",
+    "bowler_team": "India",
+    "batter_team": "Sri Lanka"
+  },
+  {
+    "template": "M2",
+    "bowler": "Ravindra Jadeja",
+    "batter": "Keshara Nuwantha",
+    "bowler_team": "India",
+    "batter_team": "Sri Lanka"
+  },
+  {
+    "template": "M2",
+    "bowler": "Ravindra Jadeja",
+    "batter": "Sonal Dinusha",
+    "bowler_team": "India",
+    "batter_team": "Sri Lanka"
+  },
+  {
+    "template": "M2",
+    "bowler": "Ravindra Jadeja",
+    "batter": "Milan Priyanath Rathnayake",
+    "bowler_team": "India",
+    "batter_team": "Sri Lanka"
+  },
+  {
+    "template": "M2",
+    "bowler": "Ravindra Jadeja",
+    "batter": "Lahiru Udara",
+    "bowler_team": "India",
+    "batter_team": "Sri Lanka"
+  },
+  {
+    "template": "M2",
+    "bowler": "Ravindra Jadeja",
+    "batter": "Nishan Madushka",
+    "bowler_team": "India",
+    "batter_team": "Sri Lanka"
+  },
+  {
+    "template": "M2",
+    "bowler": "Ravindra Jadeja",
+    "batter": "Dinesh Chandimal",
+    "bowler_team": "India",
+    "batter_team": "Sri Lanka"
+  },
+  {
+    "template": "M2",
+    "bowler": "Ravindra Jadeja",
+    "batter": "Niroshan Dickwella",
+    "bowler_team": "India",
+    "batter_team": "Sri Lanka"
+  }
+]
+
+====================================================================================================
+5. VENUE AGENT OUTPUT
+====================================================================================================
+[
+  {
+    "template": "V1",
+    "venue": "Sinhalese Sports Club",
+    "city": "Colombo"
+  },
+  {
+    "template": "V2",
+    "venue": "Sinhalese Sports Club",
+    "city": "Colombo"
+  },
+  {
+    "template": "V3",
+    "venue": "Sinhalese Sports Club",
+    "city": "Colombo"
+  }
+]
+
+====================================================================================================
+6. WEATHER REQUESTS
+====================================================================================================
+[
+  {
+    "city": "Colombo",
+    "date": "2026-08-23",
+    "parameters": [
+      "temperature_2m",
+      "relative_humidity_2m",
+      "dew_point_2m",
+      "wind_speed_10m",
+      "precipitation_probability",
+      "precipitation",
+      "weather_code"
+    ]
+  }
+]
+
+====================================================================================================
+7. WEATHER AGENT OUTPUT
+====================================================================================================
+[
+  {
+    "city": "Colombo",
+    "date": "2026-08-23",
+    "temperature": 28.8,
+    "humidity": 75,
+    "dew_point": 24.0,
+    "wind_speed": 18.6,
+    "rain_probability": 95,
+    "rain_mm": 0.1,
+    "weather_code": 51
+  }
+]
+
+====================================================================================================
+7. MONGO QUERY AGENT OUTPUT
+====================================================================================================
+{
+  "player": [
+    {
+      "status": "success",
+      "template": "P3",
+      "requested_player": "Ravindra Jadeja",
+      "resolved_player": "RA Jadeja",
+      "team": "India",
+      "result": [
+        {
+          "runs_conceded": 41,
+          "wickets": 0,
+          "venue": "Holkar Cricket Stadium, Indore",
+          "date": "2026-01-18",
+          "match_id": "1490233",
+          "overs": 6.0,
+          "economy": 6.833333333333333,
+          "opponent": "New Zealand"
+        },
+        {
+          "runs_conceded": 44,
+          "wickets": 0,
+          "venue": "Niranjan Shah Stadium, Rajkot",
+          "date": "2026-01-14",
+          "match_id": "1490232",
+          "overs": 8.0,
+          "economy": 5.5,
+          "opponent": "New Zealand"
+        },
+        {
+          "runs_conceded": 56,
+          "wickets": 0,
+          "venue": "Kotambi Stadium, Vadodara",
+          "date": "2026-01-11",
+          "match_id": "1490231",
+          "overs": 9.0,
+          "economy": 6.222222222222222,
+          "opponent": "New Zealand"
+        },
+        {
+          "runs_conceded": 50,
+          "wickets": 1,
+          "venue": "Dr. Y.S. Rajasekhara Reddy ACA-VDCA Cricket Stadium, Visakhapatnam",
+          "date": "2025-12-06",
+          "match_id": "1479575",
+          "overs": 9.0,
+          "economy": 5.555555555555555,
+          "opponent": "South Africa"
+        },
+        {
+          "runs_conceded": 41,
+          "wickets": 0,
+          "venue": "Shaheed Veer Narayan Singh International Stadium, Raipur",
+          "date": "2025-12-03",
+          "match_id": "1479574",
+          "overs": 7.0,
+          "economy": 5.857142857142857,
+          "opponent": "South Africa"
+        },
+        {
+          "runs_conceded": 66,
+          "wickets": 0,
+          "venue": "JSCA International Stadium Complex, Ranchi",
+          "date": "2025-11-30",
+          "match_id": "1479573",
+          "overs": 9.0,
+          "economy": 7.333333333333333,
+          "opponent": "South Africa"
+        },
+        {
+          "runs_conceded": 156,
+          "wickets": 6,
+          "venue": "Barsapara Cricket Stadium, Guwahati",
+          "date": "2025-11-22",
+          "match_id": "1479572",
+          "overs": 56.3,
+          "economy": 2.7610619469026547,
+          "opponent": "South Africa"
+        },
+        {
+          "runs_conceded": 63,
+          "wickets": 4,
+          "venue": "Eden Gardens, Kolkata",
+          "date": "2025-11-14",
+          "match_id": "1479571",
+          "overs": 28.0,
+          "economy": 2.25,
+          "opponent": "South Africa"
+        },
+        {
+          "runs_conceded": 148,
+          "wickets": 4,
+          "venue": "Arun Jaitley Stadium, Delhi",
+          "date": "2025-10-10",
+          "match_id": "1479570",
+          "overs": 52.0,
+          "economy": 2.8461538461538463,
+          "opponent": "West Indies"
+        },
+        {
+          "runs_conceded": 69,
+          "wickets": 4,
+          "venue": "Narendra Modi Stadium, Ahmedabad",
+          "date": "2025-10-02",
+          "match_id": "1479569",
+          "overs": 16.0,
+          "economy": 4.3125,
+          "opponent": "West Indies"
+        }
+      ]
+    },
+    {
+      "status": "success",
+      "template": "P4",
+      "requested_player": "Ravindra Jadeja",
+      "resolved_player": "RA Jadeja",
+      "team": "India",
+      "result": [
+        {
+          "wickets": 618,
+          "innings": 354,
+          "maidens": 652,
+          "average": 30.142394822006473,
+          "economy": 3.5262493690055527,
+          "strike_rate": 51.288025889967635
+        }
+      ]
+    }
+  ],
+  "matchup": [
+    {
+      "template": "M2",
+      "status": "batter_resolution_failed",
+      "query": {
+        "template": "M2",
+        "bowler": "Ravindra Jadeja",
+        "batter": "Pasindu Sooriyabandara",
+        "bowler_team": "India",
+        "batter_team": "Sri Lanka"
+      },
+      "resolution": {
+        "status": "not_found",
+        "requested_name": "Pasindu Sooriyabandara",
+        "team": "Sri Lanka",
+        "pattern": "^P.*\\s+Sooriyabandara$"
+      }
+    },
+    {
+      "template": "M2",
+      "status": "success",
+      "bowler": {
+        "requested": "Ravindra Jadeja",
+        "resolved": "RA Jadeja",
+        "team": "India"
+      },
+      "batter": {
+        "requested": "Dhananjaya de Silva",
+        "resolved": "DM de Silva",
+        "team": "Sri Lanka"
+      },
+      "stats": {
+        "runs_conceded": 79,
+        "balls_bowled": 191,
+        "wickets": 4
+      }
+    },
+    {
+      "template": "M2",
+      "status": "batter_resolution_failed",
+      "query": {
+        "template": "M2",
+        "bowler": "Ravindra Jadeja",
+        "batter": "Kamindu Mendis",
+        "bowler_team": "India",
+        "batter_team": "Sri Lanka"
+      },
+      "resolution": {
+        "status": "not_found",
+        "requested_name": "Kamindu Mendis",
+        "team": "Sri Lanka",
+        "pattern": "^K.*\\s+Mendis$"
+      }
+    },
+    {
+      "template": "M2",
+      "status": "success",
+      "bowler": {
+        "requested": "Ravindra Jadeja",
+        "resolved": "RA Jadeja",
+        "team": "India"
+      },
+      "batter": {
+        "requested": "Ramesh Mendis",
+        "resolved": "RTM Mendis",
+        "team": "Sri Lanka"
+      },
+      "stats": {
+        "runs": 0,
+        "balls": 0,
+        "dismissals": 0,
+        "strike_rate": 0
+      }
+    },
+    {
+      "template": "M2",
+      "status": "batter_resolution_failed",
+      "query": {
+        "template": "M2",
+        "bowler": "Ravindra Jadeja",
+        "batter": "Keshara Nuwantha",
+        "bowler_team": "India",
+        "batter_team": "Sri Lanka"
+      },
+      "resolution": {
+        "status": "not_found",
+        "requested_name": "Keshara Nuwantha",
+        "team": "Sri Lanka",
+        "pattern": "^K.*\\s+Nuwantha$"
+      }
+    },
+    {
+      "template": "M2",
+      "status": "batter_resolution_failed",
+      "query": {
+        "template": "M2",
+        "bowler": "Ravindra Jadeja",
+        "batter": "Sonal Dinusha",
+        "bowler_team": "India",
+        "batter_team": "Sri Lanka"
+      },
+      "resolution": {
+        "status": "not_found",
+        "requested_name": "Sonal Dinusha",
+        "team": "Sri Lanka",
+        "pattern": "^S.*\\s+Dinusha$"
+      }
+    },
+    {
+      "template": "M2",
+      "status": "batter_resolution_failed",
+      "query": {
+        "template": "M2",
+        "bowler": "Ravindra Jadeja",
+        "batter": "Milan Priyanath Rathnayake",
+        "bowler_team": "India",
+        "batter_team": "Sri Lanka"
+      },
+      "resolution": {
+        "status": "not_found",
+        "requested_name": "Milan Priyanath Rathnayake",
+        "team": "Sri Lanka",
+        "pattern": "^M.*\\s+Rathnayake$"
+      }
+    },
+    {
+      "template": "M2",
+      "status": "batter_resolution_failed",
+      "query": {
+        "template": "M2",
+        "bowler": "Ravindra Jadeja",
+        "batter": "Lahiru Udara",
+        "bowler_team": "India",
+        "batter_team": "Sri Lanka"
+      },
+      "resolution": {
+        "status": "not_found",
+        "requested_name": "Lahiru Udara",
+        "team": "Sri Lanka",
+        "pattern": "^L.*\\s+Udara$"
+      }
+    },
+    {
+      "template": "M2",
+      "status": "batter_resolution_failed",
+      "query": {
+        "template": "M2",
+        "bowler": "Ravindra Jadeja",
+        "batter": "Nishan Madushka",
+        "bowler_team": "India",
+        "batter_team": "Sri Lanka"
+      },
+      "resolution": {
+        "status": "not_found",
+        "requested_name": "Nishan Madushka",
+        "team": "Sri Lanka",
+        "pattern": "^N.*\\s+Madushka$"
+      }
+    },
+    {
+      "template": "M2",
+      "status": "batter_resolution_failed",
+      "query": {
+        "template": "M2",
+        "bowler": "Ravindra Jadeja",
+        "batter": "Dinesh Chandimal",
+        "bowler_team": "India",
+        "batter_team": "Sri Lanka"
+      },
+      "resolution": {
+        "status": "not_found",
+        "requested_name": "Dinesh Chandimal",
+        "team": "Sri Lanka",
+        "pattern": "^D.*\\s+Chandimal$"
+      }
+    },
+    {
+      "template": "M2",
+      "status": "success",
+      "bowler": {
+        "requested": "Ravindra Jadeja",
+        "resolved": "RA Jadeja",
+        "team": "India"
+      },
+      "batter": {
+        "requested": "Niroshan Dickwella",
+        "resolved": "N Dickwella",
+        "team": "Sri Lanka"
+      },
+      "stats": {
+        "runs_conceded": 80,
+        "balls_bowled": 146,
+        "wickets": 2
+      }
+    }
+  ],
+  "venue": [
+    {
+      "template": "V1",
+      "status": "success",
+      "venue": "Sinhalese Sports Club",
+      "stats": {
+        "avg_first_inn_runs": 282.5,
+        "avg_first_inn_wickets": 7.0,
+        "avg_second_inn_runs": 220.0,
+        "avg_second_inn_wickets": 10.0,
+        "highest_chase": 0
+      }
+    },
+    {
+      "template": "V2",
+      "status": "success",
+      "venue": "Sinhalese Sports Club",
+      "stats": {
+        "wickets": 5,
+        "bowler": "UDU Chandana",
+        "innings_idx": 1
+      }
+    },
+    {
+      "template": "V3",
+      "status": "success",
+      "venue": "Sinhalese Sports Club",
+      "stats": {
+        "total_matches": 2,
+        "avg_first_inn_score": 282.5,
+        "avg_second_inn_score": 220.0,
+        "toss_impact_pct": 50.0,
+        "bat_first_win_pct": 50.0,
+        "chase_win_pct": 0.0
+      }
+    }
+  ],
+  "external": [
+    {
+      "city": "Colombo",
+      "date": "2026-08-23",
+      "parameters": [
+        "temperature_2m",
+        "relative_humidity_2m",
+        "dew_point_2m",
+        "wind_speed_10m",
+        "precipitation_probability",
+        "precipitation",
+        "weather_code"
+      ]
+    }
+  ]
+}
+
+====================================================================================================
+8. STATE SUMMARY
+====================================================================================================
+Intent               : prediction
+Plan steps           : 3
+Player queries       : 2
+Matchup groups       : 11
+Venue queries        : 3
+Weather results      : 1
+
+Mongo Summary
+----------------------------------------
+Player   : 2
+Matchup  : 11
+Venue    : 3
+
+====================================================================================================
+9. AGENT CONVERSATION
+====================================================================================================
+
+[HUMAN]
+Who is the toughest batsman Ravindra Jadeja will face in upcoming Sri Lanka series?
+--------------------------------------------------------------------------------
+
+====================================================================================================
+9. FINAL REASONER OUTPUT
+====================================================================================================
+[{'type': 'text', 'text': "# Prediction\n\nDhananjaya de Silva stands out as the toughest batsman Ravindra Jadeja will face, given his historical experience against him compared to other squad members.\n\n# Win Probability\n\n- Team A (Sri Lanka) : 35%\n- Team B (India) : 55%\n- Draw : 10%\n\n# Why?\n\n- **Batting:** Sri Lanka's lineup features experienced players like Dhananjaya de Silva and Niroshan Dickwella who have faced significant volume against Jadeja.\n- **Bowling:** Ravindra Jadeja brings extensive international experience with 618 wickets across 354 innings at an economy of 3.52.\n- **Venue:** The match takes place at the Sinhalese Sports Club, Colombo, where historical first-innings averages sit at 282.5 runs, and second-innings scores drop to an average of 220 runs with a 0% chase win percentage.\n- **Weather:** Colombo expects a 28.8°C temperature with a 95% rain probability and 0.1 mm of rain, suggesting potential weather interruptions.\n- **Historical head-to-head:** In head-to-head matchup data, Dhananjaya de Silva has faced 191 balls from Jadeja, scoring 79 runs while getting dismissed 4 times, while Niroshan Dickwella has scored 80 runs off 146 balls with 2 dismissals, marking them as the primary tested threats.\n\n# Verdict\n\nBased on historical head-to-head data and squad matchups, Dhananjaya de Silva represents the most established challenge for Ravindra Jadeja in the upcoming Colombo Test, where historical venue trends favor teams batting first and weather conditions carry a high rain probability.", 'extras': {'signature': 'El4KXAERTTIPRlqi9zMx9d5LL9N8gGsDzpkd21xAedGeWNuBO67mtz486uZ/256d8l6L2uRH8NQhihcH2BzXJmJHnNhtpWCOZGg5ujRpIF7TjH3SUyOaRPg6Rx5TEtQZ'}}]
+
+====================================================================================================
+PIPELINE DEBUG COMPLETE
+====================================================================================================

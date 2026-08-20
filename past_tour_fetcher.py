@@ -2,8 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from datetime import datetime
-import json
 import re
+
 
 BASE_URL = "https://www.cricbuzz.com"
 CURRENT_YEAR = datetime.now().year
@@ -12,80 +12,188 @@ headers = {
     "User-Agent": "Mozilla/5.0"
 }
 
-session = requests.Session()
-session.headers.update(headers)
 
-series_by_year = {}
+def get_past_series():
 
-for year in range(CURRENT_YEAR, CURRENT_YEAR - 5, -1):
+    session = requests.Session()
+    session.headers.update(headers)
 
-    URL = f"{BASE_URL}/cricket-scorecard-archives/{year}"
-
-    try:
-        response = session.get(URL, timeout=30)
-        print(f"{year}: {response.status_code}")
-
-    except requests.exceptions.RequestException as e:
-        print(f"{year}: FAILED -> {e}")
-        series_by_year[year] = []
-        continue
-
-    soup = BeautifulSoup(response.text, "html.parser")
-
-    year_series = []
+    all_series = []
     seen_urls = set()
 
-    for a in soup.find_all("a", href=True):
+    # --------------------------------------------------
+    # Fetch last 5 years
+    # --------------------------------------------------
 
-        href = a["href"]
-        name = a.get_text(" ", strip=True)
+    for year in range(
+        CURRENT_YEAR,
+        CURRENT_YEAR - 5,
+        -1
+    ):
 
-        if not name:
-            continue
-
-        # Archive series links
-        if "/cricket-series/" not in href:
-            continue
-
-        if not href.rstrip("/").endswith("/matches"):
-            continue
-
-        url = urljoin(BASE_URL, href)
-
-        if url in seen_urls:
-            continue
-
-        seen_urls.add(url)
-
-        # ----------------------------------------------
-        # Extract series ID
-        # ----------------------------------------------
-
-        match = re.search(
-            r"/cricket-series/(\d+)/",
-            url
+        URL = (
+            f"{BASE_URL}/"
+            f"cricket-scorecard-archives/"
+            f"{year}"
         )
 
-        if not match:
+        try:
+
+            response = session.get(
+                URL,
+                timeout=30
+            )
+
+            print(
+                f"[Past Tour Fetcher] "
+                f"{year}: {response.status_code}"
+            )
+
+        except requests.exceptions.RequestException as e:
+
+            print(
+                f"[Past Tour Fetcher] "
+                f"{year}: FAILED -> {e}"
+            )
+
             continue
 
-        series_id = match.group(1)
 
-        year_series.append({
-            "series_id": series_id,
-            "name": name,
-            "url": url
-        })
-
-    series_by_year[year] = year_series
-
-    print(f"{year}: {len(year_series)} archive series")
+        soup = BeautifulSoup(
+            response.text,
+            "html.parser"
+        )
 
 
-print("\n" + "=" * 100)
+        year_count = 0
 
-print(json.dumps(
-    series_by_year,
-    indent=2,
-    ensure_ascii=False
-))
+
+        # --------------------------------------------------
+        # Extract series
+        # --------------------------------------------------
+
+        for a in soup.find_all(
+            "a",
+            href=True
+        ):
+
+            href = a["href"]
+
+            name = a.get_text(
+                " ",
+                strip=True
+            )
+
+
+            if not name:
+                continue
+
+
+            if "/cricket-series/" not in href:
+                continue
+
+
+            if not href.rstrip(
+                "/"
+            ).endswith("/matches"):
+
+                continue
+
+
+            url = urljoin(
+                BASE_URL,
+                href
+            )
+
+
+            # --------------------------------------------------
+            # Deduplicate globally
+            # --------------------------------------------------
+
+            if url in seen_urls:
+                continue
+
+            seen_urls.add(url)
+
+
+            # --------------------------------------------------
+            # Extract series ID
+            # --------------------------------------------------
+
+            match = re.search(
+                r"/cricket-series/(\d+)/",
+                url
+            )
+
+            if not match:
+                continue
+
+
+            series_id = int(
+                match.group(1)
+            )
+
+
+            # --------------------------------------------------
+            # Clean name
+            # --------------------------------------------------
+
+            name = " ".join(
+                name.split()
+            )
+
+
+            all_series.append({
+
+                "seriesId": series_id,
+
+                "name": name,
+
+                "url": url
+
+            })
+
+
+            year_count += 1
+
+
+        print(
+            f"[Past Tour Fetcher] "
+            f"{year}: {year_count} archive series"
+        )
+
+
+    return all_series
+
+
+# ==================================================
+# TEST
+# ==================================================
+
+if __name__ == "__main__":
+
+    series = get_past_series()
+
+    print(
+        "\n" + "=" * 100
+    )
+
+    print(
+        f"Total past series: "
+        f"{len(series)}"
+    )
+
+    print(
+        "=" * 100
+    )
+
+    for item in series:
+
+        print(
+            f"{item['seriesId']} | "
+            f"{item['name']}"
+        )
+
+        print(
+            item["url"]
+        )
