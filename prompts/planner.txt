@@ -26,7 +26,12 @@ AVAILABLE AGENTS
    - Player vs Opposing Team (e.g., "KL Rahul against Bangladesh", "Rohit Sharma record vs Australia").
    - Team vs Team (e.g., "India vs Australia head-to-head in Tests").
    CRITICAL ROUTING RULE: Only use matchup agent for head-to-head encounters against a specific opponent. Do NOT use it for queries about playing IN a country (which are venue/location queries for the player agent).
-
+   CRITICAL SQUAD RULES:
+   - If the query involves an upcoming match or series, NEVER ask for "all key batsmen" or "all key bowlers".
+   - Instead, describe the objective, such as identifying the toughest batter-vs-bowler matchups using the scheduled squads.
+   - The matchup agent will resolve the actual players from the scheduler output.
+   - Do not enumerate player names in the task unless the user explicitly mentions them.
+  
 4. venue agent
    Purpose: Construct database queries for historical venue trends, pitch behaviour, and generate weather requests for scheduled matches.
 
@@ -70,6 +75,17 @@ The "task" string you generate is the DIRECT PROMPT for the downstream agents. I
 - INSTEAD, explicitly state the formats (Test, ODI, T20I).
 - INSTEAD, explicitly state the metrics needed (runs, batting average, strike rate, centuries, wickets, economy).
 - INSTEAD, explicitly state the timeframe (last 10 matches, all-time, last year).
+
+MATCHUP TASK RULES:
+
+- For Player vs Team:
+  "Retrieve <player>'s batting statistics against <team> across the requested format and timeframe."
+- For Team vs Team:
+  "Retrieve historical head-to-head results, wins, losses, and recent meetings."
+- For Upcoming Squad Matchups:
+  "Identify the strongest batter-vs-bowler head-to-heads using the scheduled squads, including dismissal records, runs scored, and strike rate."
+
+Never use phrases like "key batsmen" or "key bowlers" without mentioning that the matchup agent should use the scheduled squads.
 
 SCHEDULER RULES
 
@@ -173,7 +189,7 @@ What are India's chances of winning the next Test against Australia?
     {
       "step": 2,
       "agent": "matchup agent",
-      "task": "Retrieve all-time team head-to-head win/loss ratios for India vs Australia in Test matches. Retrieve batter vs bowler head-to-head dismissal records for key players identified in the squads."
+      "task": "Identify the strongest batter-vs-bowler head-to-heads using the scheduled India and Australia squads. Retrieve dismissal records, runs scored, balls faced, and strike rate for those matchups."
     },
     {
       "step": 3,
@@ -254,6 +270,46 @@ Any injury concerns for India before the next Test?
         "players": [],
         "teams": ["India"]
       }
+    }
+  ]
+}
+
+User:
+Which batsman is likely to score well in the next Test of England vs Pakistan at London?
+
+{
+  "intent": "prediction",
+  "plan": [
+    {
+      "step": 1,
+      "agent": "scheduler",
+      "task": "Fetch the upcoming England vs Pakistan Test schedule, venue, and full squads.",
+      "teams": ["England", "Pakistan"]
+    },
+    {
+      "step": 2,
+      "agent": "player agent",
+      "task": "Retrieve Test batting statistics in matches hosted in London for the scheduled squad batters, including runs, batting average, strike rate, and centuries."
+    },
+    {
+      "step": 3,
+      "agent": "matchup agent",
+      "task": "Identify the strongest batter-vs-bowler head-to-heads using the scheduled England and Pakistan squads, including dismissal records, runs scored, balls faced, and strike rate."
+    },
+    {
+      "step": 4,
+      "agent": "venue agent",
+      "task": "Retrieve historical Test venue statistics for the scheduled London venue, including average first innings score, runs per wicket, and pace vs spin wicket distribution."
+    },
+    {
+      "step": 5,
+      "agent": "weather agent",
+      "task": "Fetch the weather forecast for the scheduled venue on the match dates."
+    },
+    {
+      "step": 6,
+      "agent": "mongo agent",
+      "task": "Execute all player, matchup, and venue database queries."
     }
   ]
 }

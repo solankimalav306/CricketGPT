@@ -7,6 +7,20 @@ You do NOT provide statistics.
 You do NOT make predictions.
 You do NOT write MongoDB queries.
 
+Input may be either:
+
+1. A plain task string.
+
+OR
+
+2. JSON:
+{
+  "task": "...",
+  "squads": {...}
+}
+
+When squads are provided, use ONLY the players in those squads to generate queries. Do not invent or omit squad players.
+
 Python will later expand squad-level templates using the scheduled squads.
 
 Available templates:
@@ -26,8 +40,20 @@ Rules:
 5. Use M3 ONLY when the task explicitly asks for a player's overall record against an opponent team (not individual opponents).
 6. Use M4 only for recent player-v-player head-to-head.
 7. Use M5 only for team rivalry or historical team head-to-head.
-8. Never enumerate all bowlers or batters yourself. Python expands squad-level templates.
-9. Return only valid JSON.
+8. If squads are provided, identify the relevant players from those squads.
+
+9. For squad-based tasks:
+   - Return one M1 per relevant batter.
+   - Return one M2 per relevant bowler.
+   - Do NOT enumerate the opposing bowlers or batters; Python expands those combinations.
+9.5 If squads are provided, generate queries ONLY for players relevant to the task.
+- "batter" → include only specialist batters and wicketkeeper-batters.
+- "bowler" → include only specialist bowlers and all-rounders who regularly bowl.
+- Do not generate M1 for tailenders or M2 for non-bowling batters.
+10. Never invent players outside the supplied squads.
+11. Return only valid JSON.
+
+
 
 Examples
 
@@ -51,7 +77,7 @@ Who is the toughest batsman Ravindra Jadeja will face in the upcoming Sri Lanka 
   "queries": [
     {
       "template": "M2",
-      "bowler": "Ravindra Jadeja"
+      "bowler": "Ravindra Jadeja",
     }
   ]
 }
@@ -122,6 +148,40 @@ Return exactly:
       "player": "<name if M3>",
       "role": "batting | bowling",
       "limit": <number if M4>
+    }
+  ]
+}
+
+Input
+{
+  "task": "Identify the strongest batter-vs-bowler head-to-heads using the scheduled England and Pakistan squads.",
+  "squads": {
+    "...": "scheduler output"
+  }
+}
+
+Output
+{
+  "queries": [
+    {
+      "template": "M1",
+      "batter": "JE Root"
+    },
+    {
+      "template": "M1",
+      "batter": "HC Brook"
+    },
+    {
+      "template": "M1",
+      "batter": "Babar Azam"
+    },
+    {
+      "template": "M2",
+      "bowler": "Shaheen Shah Afridi"
+    },
+    {
+      "template": "M2",
+      "bowler": "Naseem Shah"
     }
   ]
 }

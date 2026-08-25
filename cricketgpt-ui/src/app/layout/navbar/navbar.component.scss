@@ -2,93 +2,184 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  height: 64px;
+  height: 68px;
   background: var(--navbar-bg);
   border-bottom: 1px solid var(--navbar-border);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .navbar-inner {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   height: 100%;
   padding: 0 24px;
   display: flex;
   align-items: center;
-  gap: 24px;
+  justify-content: space-between;
 }
 
+/* ── Brand Logo Styling ── */
 .brand {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   text-decoration: none;
   flex-shrink: 0;
 
-  .brand-icon { font-size: 22px; }
+  .brand-visual {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-primary);
+    border: 1.5px solid var(--border);
+    border-radius: 50%;
+    overflow: hidden;
+    transition: all 0.25s ease;
 
-  .brand-name {
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--text-primary);
-    letter-spacing: -0.02em;
+    .brand-logo-icon {
+      font-size: 14px;
+      color: var(--text-primary);
+      z-index: 2;
+      transition: color 0.25s ease;
+    }
+
+    .brand-gradient-orb {
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-gemini);
+      opacity: 0;
+      z-index: 1;
+      transition: opacity 0.25s ease;
+    }
   }
 
-  .brand-accent { color: var(--accent); }
+  .brand-name {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.025em;
+    transition: color 0.25s ease;
+  }
+
+  .brand-accent {
+    background: var(--gradient-gemini);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 
   .brand-badge {
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 700;
-    background: var(--accent);
-    color: white;
+    border: 1px solid rgba(138, 180, 248, 0.15);
+    background: var(--badge-bg);
+    color: var(--badge-text);
     padding: 2px 6px;
-    border-radius: 4px;
-    letter-spacing: 0.06em;
+    border-radius: 99px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  &:hover {
+    .brand-visual {
+      border-color: transparent;
+      transform: scale(1.05);
+
+      .brand-logo-icon {
+        color: #ffffff;
+      }
+      .brand-gradient-orb {
+        opacity: 1;
+      }
+    }
   }
 }
 
+/* ── Modern Segmented Nav Pills ── */
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 4px;
-  flex: 1;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  padding: 4px;
+  border-radius: 99px;
 }
 
 .nav-link {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 99px;
   text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   color: var(--text-secondary);
   transition: all 0.2s ease;
 
-  &:hover { background: var(--bg-card-hover); color: var(--text-primary); }
-  &.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+  .nav-icon {
+    font-size: 12px;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+  }
+
+  &:hover {
+    color: var(--text-primary);
+    background: var(--bg-card-hover);
+
+    .nav-icon {
+      color: var(--text-primary);
+    }
+  }
+
+  &.active {
+    color: #ffffff !important;
+    background: var(--gradient-gemini);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+
+    .nav-icon {
+      color: #ffffff;
+    }
+  }
 }
 
+/* ── Minimalist Theme Switch Button ── */
 .theme-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-md);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
   border: 1px solid var(--border);
   background: var(--bg-card);
   color: var(--text-secondary);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   flex-shrink: 0;
+
+  .theme-icon {
+    font-size: 14px;
+    transition: transform 0.25s ease;
+  }
 
   &:hover {
     background: var(--bg-card-hover);
     color: var(--text-primary);
     border-color: var(--accent);
+    transform: scale(1.05);
+
+    .sun-spin {
+      transform: rotate(45deg);
+    }
+
+    .moon-drift {
+      transform: rotate(-15deg) scale(1.05);
+    }
   }
 }

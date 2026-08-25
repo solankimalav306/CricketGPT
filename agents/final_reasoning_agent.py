@@ -35,8 +35,16 @@ def final_reasoning_agent(state, llm):
         SystemMessage(content=system_prompt),
         HumanMessage(
             content=json.dumps({
-                "question": question,
-                "evidence": evidence
+                "user_query": question,
+                "intent": intent,
+                "evidence": {
+                    "player_statistics": mongo.get("player", []),
+                    "matchup_statistics": mongo.get("matchup", []),
+                    "venue_analytics": mongo.get("venue", []),
+                    "weather": state.get("weather_results", []),
+                    "schedule": state.get("schedule", {}),
+                    "recent_news": state.get("news_results", [])
+                }
             }, indent=2, ensure_ascii=False)
         )
     ])

@@ -62,3 +62,8 @@ export interface CricketResponse {
 export interface QueryRequest {
   query: string;
 }
+
+export interface PlannerProgress {
+  intent?: string;
+  plan: Array<{ task?: string; agent?: string; description?: string }>;
+}

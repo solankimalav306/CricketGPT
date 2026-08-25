@@ -1,3 +1,5 @@
+from datetime import date
+
 import requests
 
 
@@ -46,12 +48,22 @@ def get_weather(weather_request):
 
     url = "https://api.open-meteo.com/v1/forecast"
 
+    WEATHER_PARAMETERS = [
+        "temperature_2m",
+        "relative_humidity_2m",
+        "dew_point_2m",
+        "wind_speed_10m",
+        "precipitation_probability",
+        "precipitation",
+        "weather_code",
+    ]
+
     response = requests.get(
         url,
         params={
             "latitude": lat,
             "longitude": lon,
-            "hourly": ",".join(weather_request["parameters"]),
+            "hourly": ",".join(WEATHER_PARAMETERS),
             "start_date": date,
             "end_date": date,
             "timezone": "auto"

@@ -1,10 +1,14 @@
 import re
 import json
 import os
+import uuid
+import queue
+import threading
+import asyncio
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel
 from langchain_core.messages import HumanMessage
 from workflow import app as cricket_graph
@@ -26,6 +30,51 @@ fastapi_app.add_middleware(
 # ──────────────────────────────────────────────────────────────
 class QueryRequest(BaseModel):
     query: str
+
+
+# Short-lived in-memory jobs power the progress UI.  They intentionally avoid a
+# database: a page refresh should start a fresh analysis rather than resurrect a
+# potentially expensive model run.
+query_jobs: dict[str, queue.Queue] = {}
+
+NODE_LABELS = {
+    "planner": "Planner", "executor": "Coordinator", "scheduler": "Schedule analyst",
+    "player_agent": "Player analyst", "matchup_agent": "Matchup analyst",
+    "venue_agent": "Venue analyst", "weather_agent": "Weather analyst",
+    "news_agent": "News analyst", "mongo_agent": "Evidence database",
+    "final_reasoning_agent": "Final reasoner", "presentation_agent": "Presentation builder",
+}
+
+
+def _event(kind: str, **data) -> str:
+    return f"event: {kind}\ndata: {json.dumps(data, default=str)}\n\n"
+
+
+def _run_job(job_id: str, query: str) -> None:
+    events = query_jobs[job_id]
+    try:
+        result = None
+        for update in cricket_graph.stream({"messages": [{"role": "user", "content": query}]}, stream_mode="updates"):
+            for node, output in update.items():
+                label = NODE_LABELS.get(node, node.replace("_", " ").title())
+                events.put(_event("step", id=node, label=label, status="executing"))
+                if node == "planner":
+                    events.put(_event("planner", intent=output.get("intent"), plan=output.get("plan", [])))
+                events.put(_event("step", id=node, label=label, status="completed"))
+                result = {**(result or {}), **output}
+        # stream updates are cumulative node outputs; invoke once only if a graph
+        # version did not emit the final answer during streaming.
+        if not result or "final_answer" not in result:
+            result = cricket_graph.invoke({"messages": [{"role": "user", "content": query}]})
+        raw_answer = extract_text_from_answer(result.get("final_answer"))
+        events.put(_event("complete", result={
+            "query": query, "thinking": build_thinking_data(result),
+            "answer": parse_answer_sections(raw_answer), "html": result.get("final_html", ""),
+        }))
+    except Exception as exc:
+        events.put(_event("error", detail=f"Pipeline error: {str(exc)}"))
+    finally:
+        events.put(None)
 
 
 # ──────────────────────────────────────────────────────────────
@@ -262,6 +311,33 @@ async def run_query(request: QueryRequest):
         "answer": sections,
         "html": final_html,
     }
+
+
+@fastapi_app.post("/api/query/start")
+async def start_query(request: QueryRequest):
+    if not request.query.strip():
+        raise HTTPException(status_code=400, detail="Query cannot be empty.")
+    job_id = uuid.uuid4().hex
+    query_jobs[job_id] = queue.Queue()
+    threading.Thread(target=_run_job, args=(job_id, request.query), daemon=True).start()
+    return {"job_id": job_id}
+
+
+@fastapi_app.get("/api/query/{job_id}/events")
+async def query_events(job_id: str):
+    if job_id not in query_jobs:
+        raise HTTPException(status_code=404, detail="Analysis job not found.")
+
+    async def stream_events():
+        events = query_jobs[job_id]
+        while True:
+            item = await asyncio.to_thread(events.get)
+            if item is None:
+                query_jobs.pop(job_id, None)
+                break
+            yield item
+
+    return StreamingResponse(stream_events(), media_type="text/event-stream", headers={"Cache-Control": "no-cache"})
 
 
 @fastapi_app.get("/api/health")

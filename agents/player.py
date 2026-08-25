@@ -46,16 +46,31 @@ def player_agent_node(state: CricketState, llm):
     # Ask LLM to generate database requirements
     # --------------------------------------------------
 
-    response = llm.invoke(
-        [
-            SystemMessage(
-                content=system_prompt
-            ),
-            HumanMessage(
-                content=task
-            )
-        ]
-    )
+    squads = state.get("schedule", {}).get("squads", {})
+
+    if squads:
+
+        llm_input = {
+            "task": task,
+            "squads": squads
+        }
+
+        print("[Player Agent] Using scheduler squads.")
+
+    else:
+
+        llm_input = task
+
+        print("[Player Agent] No squads available.")
+
+    response = llm.invoke([
+        SystemMessage(content=system_prompt),
+        HumanMessage(
+            content=json.dumps(llm_input, ensure_ascii=False)
+            if isinstance(llm_input, dict)
+            else llm_input
+        )
+    ])
 
 
     # --------------------------------------------------

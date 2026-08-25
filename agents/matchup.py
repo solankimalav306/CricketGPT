@@ -37,9 +37,21 @@ def matchup_agent(state: CricketState, llm):
 
     system_prompt = load_prompt("matchup")
 
+    squads = state.get("schedule", {}).get("squads", {})
+
+    llm_input = (
+        {"task": task, "squads": squads}
+        if squads
+        else task
+    )
+
     response = llm.invoke([
         SystemMessage(content=system_prompt),
-        HumanMessage(content=task)
+        HumanMessage(
+            content=json.dumps(llm_input, ensure_ascii=False)
+            if isinstance(llm_input, dict)
+            else llm_input
+        )
     ])
 
     content = response.content

@@ -1,7 +1,13 @@
 .result-page {
-  max-width: 1400px;
+  width: 100%;
+  max-width: none;
   margin: 0 auto;
-  padding: 24px 24px 60px;
+  height: auto;
+  min-height: 100vh;
+  padding: 16px 24px;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ── No data guard ── */
@@ -24,7 +30,7 @@
   display: flex;
   align-items: flex-start;
   gap: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 14px;
   flex-wrap: wrap;
 }
 
@@ -119,6 +125,8 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  min-height: 0;
+  overflow: visible;
 }
 
 .section-anim {
@@ -195,6 +203,16 @@
   .presentation-dashboard {
     display: block;
     width: 100%;
+    height: auto;
+    overflow: visible;
+
+    /* Presentation-agent markup often ships with a 900px centered wrapper. */
+    > :first-child {
+      width: 100% !important;
+      max-width: none !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
     
     svg {
       max-width: 100%;
@@ -204,9 +222,40 @@
   }
 }
 
+@media (max-width: 900px) {
+  .result-page { height: auto; min-height: 100vh; overflow: visible; padding: 16px; }
+  .answer-sections { overflow: visible; }
+  :host ::ng-deep .presentation-dashboard { height: auto; overflow: visible; }
+}
+
+
 /* Explicit global rules for dark mode styling on innerHTML content */
 ::ng-deep [data-theme='dark'] {
   .presentation-dashboard {
+    color: var(--text-primary) !important;
+
+    /* Replace the generated light/purple hero with a restrained maroon surface. */
+    > :first-child > div:first-child,
+    [style*="linear-gradient"] {
+      background: linear-gradient(120deg, #351217 0%, #6f1722 60%, #a4404b 100%) !important;
+      border-color: #7b3c45 !important;
+    }
+
+    p, li, span:not([class*="icon"]), small {
+      color: var(--text-secondary) !important;
+    }
+
+    h1, h2, h3, h4, strong, b {
+      color: var(--text-primary) !important;
+    }
+
+    [style*="background-color: #fff"],
+    [style*="background: #fff"],
+    [style*="background-color:#fff"] {
+      background-color: var(--bg-card) !important;
+      border-color: var(--border) !important;
+    }
+
     /* Handle alternating table rows in dark mode */
     tr:nth-child(even) {
       background-color: var(--bg-sidebar) !important;

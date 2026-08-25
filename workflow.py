@@ -1327,7 +1327,7 @@ if __name__ == "__main__":
             "messages": [
                 {
                     "role": "user",
-                    "content": "Visat Kohli against Pat Cummins? Who wins?"
+                    "content": "which batsman is likely to score well in the next test of England vs pakistan at london?"
                 }
             ]
         }
