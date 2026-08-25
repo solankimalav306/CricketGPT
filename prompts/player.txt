@@ -29,22 +29,24 @@ Rules:
 1. Generate only statistics that are directly retrievable from the database.
 2. Convert "recent form" into "last 10 matches" unless another period is specified.
 3. Never generate queries for groups of players.
-4. Every query must target one explicitly named player. Keep it single player specific, do not target whole team.
+4. Every query must target one explicitly named player. ALWAYS prefer using their standard Cricsheet scoreboard name (e.g., "V Kohli", "RG Sharma", "MS Dhoni", "SPD Smith", "AR Patel", "AY Patel") as the "player" value if you are highly confident of their scorecard initials. If you are not confident, fall back to their common full name (e.g., "Rahul Sharma").
 5. Every query must correspond to one template.
 6. Do not duplicate equivalent queries.
-7. give only JSON output.
+7. IMPORTANT: Use your internal knowledge of cricket to identify the international team/country that player represents and ALWAYS include it in the "team" field.
+8. CRITICAL LOCATION RULE: For any query asking about a player's performance in a specific country, city, or venue (e.g., "Rohit Sharma centuries in Australia", "Virat Kohli runs at Lord's", "Bumrah wickets in England"), you MUST use template P1 (for batting) or P3 (for bowling) with a high "limit" (e.g., 100 or 150) to retrieve individual match-by-match innings. Do NOT use career summaries or format summaries (P2, P4, P6) for location-based questions, as they return pre-aggregated career statistics that lack the venue/city metadata required for the Final Reasoning Agent to filter by location.
+9. Return ONLY valid JSON.
 
 Available templates:
 
-P1 = Last N batting performances
+P1 = Last N batting performances (requires "limit")
 P2 = Career batting summary
-P3 = Last N bowling performances
+P3 = Last N bowling performances (requires "limit")
 P4 = Career bowling summary
-P5 = Milestone summary (50s / 100s / 5WI)
-P6 = Record by match format
-P7 = Home vs Away performance
-P8 = Performance by innings
-P9 = Wins vs Losses performance
+P5 = Milestone summary (requires "start_date" and "end_date" as YYYY-MM-DD)
+P6 = Record by match format (requires "match_format": "Test", "ODI", or "T20I", and "role": "batting" or "bowling")
+P7 = Home vs Away performance (requires "home_country" and "role")
+P8 = Performance by innings (requires "role")
+P9 = Wins vs Losses performance (requires "role")
 
 Return ONLY valid JSON in this format:
 
@@ -52,8 +54,40 @@ Return ONLY valid JSON in this format:
   "queries": [
     {
       "template": "P1",
-      "player": "Player Name",
-      "limit": 10
+      "player": "V Kohli",
+      "team": "India",
+      "limit": 100
+    }
+  ]
+}
+
+EXAMPLES
+
+Task:
+Retrieve Rohit Sharma's batting record, including total runs, matches, and exact dates where he scored a century, specifically when playing in matches hosted in Australia across Tests, ODIs, and T20Is.
+
+{
+  "queries": [
+    {
+      "template": "P1",
+      "player": "RG Sharma",
+      "team": "India",
+      "limit": 100
+    }
+  ]
+}
+
+Task:
+Retrieve career batting statistics for Virat Kohli in Test matches.
+
+{
+  "queries": [
+    {
+      "template": "P6",
+      "player": "V Kohli",
+      "team": "India",
+      "match_format": "Test",
+      "role": "batting"
     }
   ]
 }

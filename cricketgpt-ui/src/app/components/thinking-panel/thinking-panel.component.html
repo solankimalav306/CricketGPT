@@ -1,0 +1,121 @@
+<div class="thinking-panel">
+  <!-- Header -->
+  <div class="panel-header">
+    <div class="panel-title-row">
+      <span class="brain-icon">🧠</span>
+      <div>
+        <div class="panel-title">Pipeline Thinking</div>
+        <div class="panel-subtitle">{{ steps.length }} agents executed</div>
+      </div>
+    </div>
+    <div class="all-done-badge">
+      <span class="done-dot"></span>
+      All done
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="timeline">
+    @for (step of steps; track step.id; let i = $index; let last = $last) {
+      <div class="timeline-item" [style.animation-delay]="(i * 0.08) + 's'">
+
+        <!-- Connector line -->
+        @if (!last) {
+          <div class="connector">
+            <div class="connector-line" [class.connector-done]="step.status === 'done'"></div>
+          </div>
+        }
+
+        <!-- Step node -->
+        <div class="step-node" [class.step-done]="step.status === 'done'" [class.step-expanded]="isExpanded(step.id)">
+          <button class="step-trigger" (click)="toggle(step.id)">
+            <div class="step-left">
+              <div class="step-icon-wrap" [class.done]="step.status === 'done'">
+                <span class="step-emoji">{{ step.icon }}</span>
+                @if (step.status === 'done') {
+                  <span class="done-tick">✓</span>
+                }
+              </div>
+              <div class="step-info">
+                <div class="step-label">{{ step.label }}</div>
+                <div class="step-summary">{{ step.summary }}</div>
+              </div>
+            </div>
+            <div class="step-right">
+              <span class="step-badge done-badge">Done</span>
+              <svg class="chevron" [class.open]="isExpanded(step.id)"
+                   width="14" height="14" viewBox="0 0 24 24"
+                   fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </button>
+
+          <!-- Expanded detail -->
+          @if (isExpanded(step.id)) {
+            <div class="step-detail fade-in">
+
+              @if (isPlanArray('plan', step.detail['plan'])) {
+                <!-- Plan steps special render -->
+                <div class="detail-section">
+                  <div class="detail-key">Sub-tasks planned</div>
+                  <div class="plan-steps">
+                    @for (p of planSteps(step.detail['plan']); track p.agent) {
+                      <div class="plan-step">
+                        <span class="plan-agent">{{ p.agent }}</span>
+                        <span class="plan-task">{{ p.task }}</span>
+                      </div>
+                    }
+                  </div>
+                </div>
+                @for (key of detailKeys(step.detail); track key) {
+                  @if (key !== 'plan') {
+                    <div class="detail-section">
+                      <div class="detail-key">{{ key | titlecase }}</div>
+                      <div class="detail-value">{{ formatValue(step.detail[key]) }}</div>
+                    </div>
+                  }
+                }
+              } @else {
+
+                @for (key of detailKeys(step.detail); track key) {
+                  <div class="detail-section">
+                    <div class="detail-key">{{ key }}</div>
+
+                    @if (isArray(step.detail[key]) && asArray(step.detail[key]).length > 0) {
+                      <div class="detail-list">
+                        @for (item of asArray(step.detail[key]); track $index) {
+                          <div class="detail-list-item">
+                            @if ($any(item)['agent'] || $any(item)['template']) {
+                              <pre class="code-block">{{ formatValue(item) }}</pre>
+                            } @else if ($any(item)['team']) {
+                              <div class="squad-item">
+                                <span class="squad-team">{{ $any(item)['team'] }}</span>
+                                <span class="squad-count">{{ $any(item)['player_count'] }} players</span>
+                                <div class="squad-players">{{ $any(item)['players']?.join(', ') }}{{ $any(item)['player_count'] > 6 ? '...' : '' }}</div>
+                              </div>
+                            } @else {
+                              <pre class="code-block">{{ formatValue(item) }}</pre>
+                            }
+                          </div>
+                        }
+                      </div>
+                    } @else {
+                      <div class="detail-value">{{ formatValue(step.detail[key]) }}</div>
+                    }
+
+                  </div>
+                }
+
+                @if (detailKeys(step.detail).length === 0) {
+                  <div class="detail-empty">No additional details.</div>
+                }
+              }
+            </div>
+          }
+        </div>
+
+      </div>
+    }
+  </div>
+</div>

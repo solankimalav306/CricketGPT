@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CricketGPT</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏏</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['selector', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          colors: {
+            white: 'var(--bg-card)',
+            slate: {
+              50: 'var(--bg-sidebar)',
+              100: 'var(--bg-sidebar)',
+              200: 'var(--border)',
+              300: 'var(--text-muted)',
+              400: 'var(--text-muted)',
+              500: 'var(--text-secondary)',
+              600: 'var(--text-secondary)',
+              700: 'var(--text-primary)',
+              800: 'var(--text-primary)',
+              900: 'var(--text-primary)',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>

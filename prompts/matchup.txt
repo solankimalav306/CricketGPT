@@ -20,15 +20,29 @@ M5 = Team vs Team historical head-to-head
 Rules:
 
 1. Generate only the minimum required templates.
-2. If the task asks about a batter against an opposition bowling attack, return M1 with only the batter name.
-3. If the task asks about a bowler against an opposition batting lineup, return M2 with only the bowler name.
-4. Use M3 ONLY when the task explicitly asks for a player's overall record against an opponent team (not individual opponents).
-5. Use M4 only for recent player-v-player head-to-head.
-6. Use M5 only for team rivalry or historical team head-to-head.
-7. Never enumerate bowlers or batters. Python expands them from the squads.
-8. Return only valid JSON.
+2. If both a specific batter AND a specific bowler are named in the task, include BOTH "batter" and "bowler" fields. This is a direct head-to-head — do NOT omit either player.
+3. If the task asks about a batter against an opposition bowling attack (no specific bowler named), return M1 with only the batter name. Python will expand it from squads.
+4. If the task asks about a bowler against an opposition batting lineup (no specific batter named), return M2 with only the bowler name. Python will expand it from squads.
+5. Use M3 ONLY when the task explicitly asks for a player's overall record against an opponent team (not individual opponents).
+6. Use M4 only for recent player-v-player head-to-head.
+7. Use M5 only for team rivalry or historical team head-to-head.
+8. Never enumerate all bowlers or batters yourself. Python expands squad-level templates.
+9. Return only valid JSON.
 
 Examples
+
+Task:
+Retrieve the head-to-head batting statistics for Virat Kohli when facing Pat Cummins, including total runs scored, balls faced, dismissals, batting average, and strike rate.
+
+{
+  "queries": [
+    {
+      "template": "M1",
+      "batter": "Virat Kohli",
+      "bowler": "Pat Cummins"
+    }
+  ]
+}
 
 Task:
 Who is the toughest batsman Ravindra Jadeja will face in the upcoming Sri Lanka series?
@@ -78,12 +92,36 @@ Analyze India vs Sri Lanka historical head-to-head
   ]
 }
 
+Task:
+Retrieve Steve Smith's batting stats against Jasprit Bumrah across all formats, plus recent dismissal history.
+
+{
+  "queries": [
+    {
+      "template": "M1",
+      "batter": "Steve Smith",
+      "bowler": "Jasprit Bumrah"
+    },
+    {
+      "template": "M4",
+      "batter": "Steve Smith",
+      "bowler": "Jasprit Bumrah",
+      "limit": 5
+    }
+  ]
+}
+
 Return exactly:
 
 {
   "queries": [
     {
-      "template": "M1 | M2 | M3 | M4 | M5"
+      "template": "M1 | M2 | M3 | M4 | M5",
+      "batter": "<name if applicable>",
+      "bowler": "<name if applicable>",
+      "player": "<name if M3>",
+      "role": "batting | bowling",
+      "limit": <number if M4>
     }
   ]
 }

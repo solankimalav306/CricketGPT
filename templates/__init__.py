@@ -13,7 +13,8 @@ from .matchup_templates import (
     get_m1_template,
     get_m2_template,
     get_m3_template,
-    get_m4_template
+    get_m4_template,
+    get_m5_template
 )
 from .venue_templates import (
     get_v1_template,

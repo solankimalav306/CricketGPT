@@ -118,6 +118,14 @@ def write_pipeline_log(result):
         dump_json(out, mongo, "No Mongo results.")
 
         # ==================================================
+        # NEWS
+        # ==================================================
+
+        section(out, 8, "NEWS AGENT OUTPUT")
+        news = result.get("news_results")
+        dump_json(out, news, "No news results.")
+
+        # ==================================================
         # SUMMARY
         # ==================================================
 
@@ -131,7 +139,7 @@ def write_pipeline_log(result):
         print(f"Matchup groups       : {len(result.get('matchup_queries', {}))}", file=out)
         print(f"Venue queries        : {len(result.get('venue_queries', []))}", file=out)
         print(f"Weather results      : {len(result.get('weather_results', []))}", file=out)
-
+        print(f"News results         : {len(result.get('news_results', []))}", file=out)
         if mongo:
             print("\nMongo Summary", file=out)
             print("-" * 40, file=out)

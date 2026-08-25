@@ -26,6 +26,7 @@ Used for head-to-head match-up comparisons and player-vs-opposition records.
 *   **M2: Bowler vs. Batter H2H**: `get_m2_template(bowler_name, batter_name)`
 *   **M3: Player vs. Opposing Team**: `get_m3_template(player_name, opponent_team, role="batting")`
 *   **M4: Recent Batter vs. Bowler H2H**: `get_m4_template(batter_name, bowler_name, limit_n=5)`
+*   **M5: Team vs. Team Historical H2H**: `get_m5_template(team1, team2, limit_n=None)`
 
 ---
 

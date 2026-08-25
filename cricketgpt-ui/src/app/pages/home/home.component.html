@@ -1,0 +1,114 @@
+<div class="home-page">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        Powered by AI · LangGraph Pipeline
+      </div>
+      <h1 class="hero-title">
+        Cricket intelligence,<br>
+        <span class="hero-accent">at your fingertips.</span>
+      </h1>
+      <p class="hero-sub">
+        Ask anything about cricket — match predictions, player matchups, venue stats, weather impact.
+        CricketGPT runs a full multi-agent pipeline to answer with evidence.
+      </p>
+    </div>
+  </section>
+
+  <!-- Query Box -->
+  <section class="query-section">
+    <div class="query-card card">
+      <div class="query-header">
+        <span class="query-icon">🏏</span>
+        <span class="query-label">Ask CricketGPT</span>
+      </div>
+
+      <div class="textarea-wrap">
+        <textarea
+          class="query-input"
+          [(ngModel)]="query"
+          (keydown)="onKeydown($event)"
+          placeholder="e.g. Who is the toughest batsman Jadeja will face in the upcoming Sri Lanka Test series?"
+          rows="4"
+          [disabled]="loading()"
+        ></textarea>
+        <div class="input-hint">Press <kbd>Ctrl</kbd>+<kbd>Enter</kbd> to submit</div>
+      </div>
+
+      @if (error()) {
+        <div class="error-banner">
+          <span>⚠️</span> {{ error() }}
+        </div>
+      }
+
+      <div class="query-footer">
+        <div class="char-count">{{ query().length }} characters</div>
+        <button class="btn btn-primary submit-btn" (click)="submit()" [disabled]="!query().trim() || loading()">
+          @if (loading()) {
+            <span class="spinner"></span>
+            <span>Analysing...</span>
+          } @else {
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+            <span>Ask CricketGPT</span>
+          }
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading pipeline steps preview -->
+    @if (loading()) {
+      <div class="loading-panel fade-in">
+        <div class="loading-title">🤖 Running multi-agent pipeline...</div>
+        <div class="loading-steps">
+          @for (step of ['Planner', 'Scheduler', 'Player Agent', 'Matchup Agent', 'Venue Agent', 'Weather Agent', 'Database Agent', 'Final Reasoner']; track step; let i = $index) {
+            <div class="loading-step" [style.animation-delay]="(i * 0.15) + 's'">
+              <div class="loading-step-dot"></div>
+              <span>{{ step }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Example queries -->
+    @if (!loading()) {
+      <div class="examples fade-in">
+        <div class="examples-label">Try an example</div>
+        <div class="examples-chips">
+          @for (q of exampleQueries; track q) {
+            <button class="chip" (click)="setExample(q)">{{ q }}</button>
+          }
+        </div>
+      </div>
+    }
+  </section>
+
+  <!-- Feature pills -->
+  <section class="features">
+    @for (f of [
+      {icon:'🧠', label:'Multi-Agent Reasoning'},
+      {icon:'📊', label:'Live Stats from DB'},
+      {icon:'🌤️', label:'Weather Impact'},
+      {icon:'🏟️', label:'Venue Analysis'},
+      {icon:'⚔️', label:'Head-to-Head Matchups'},
+      {icon:'📅', label:'Schedule Awareness'}
+    ]; track f.label) {
+      <div class="feature-pill">
+        <span>{{ f.icon }}</span>
+        <span>{{ f.label }}</span>
+      </div>
+    }
+  </section>
+
+</div>

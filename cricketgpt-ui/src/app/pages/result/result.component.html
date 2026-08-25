@@ -1,0 +1,116 @@
+<div class="result-page">
+
+  @if (!data()) {
+    <!-- No data guard -->
+    <div class="no-data fade-in">
+      <div class="no-data-icon">🏏</div>
+      <div class="no-data-title">No result found</div>
+      <p class="no-data-sub">Please go back and ask a question first.</p>
+      <a class="btn btn-primary" routerLink="/">← Ask CricketGPT</a>
+    </div>
+  } @else {
+
+    <!-- Page header -->
+    <div class="result-header fade-in">
+      <a class="back-btn btn btn-ghost" routerLink="/">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        New Query
+      </a>
+      <div class="query-chip">
+        <span class="query-chip-icon">💬</span>
+        <span class="query-chip-text">{{ data()!.query }}</span>
+      </div>
+    </div>
+
+    <!-- Split layout -->
+    <div class="split-layout">
+
+      <!-- LEFT: Thinking panel (sticky sidebar) -->
+      <aside class="thinking-sidebar">
+        <div class="sidebar-sticky">
+          <app-thinking-panel [steps]="data()!.thinking.steps" />
+        </div>
+      </aside>
+
+      <!-- RIGHT: Answer panel -->
+      <section class="answer-panel">
+
+        <!-- Tab bar -->
+        <div class="tab-bar">
+          <button class="tab-btn" [class.active]="activeTab() === 'answer'" (click)="setTab('answer')">
+            ✨ Analysis
+          </button>
+          <button class="tab-btn" [class.active]="activeTab() === 'raw'" (click)="setTab('raw')">
+            📄 Raw Output
+          </button>
+        </div>
+
+        <!-- Analysis tab -->
+        @if (activeTab() === 'answer') {
+          <div class="answer-sections">
+
+            <!-- Beautiful HTML Presentation Dashboard from Presentation Agent -->
+            @if (sanitizedHtml()) {
+              <div class="presentation-dashboard fade-in" [innerHTML]="sanitizedHtml()"></div>
+            } @else {
+              <!-- Fallback to standard component layouts -->
+              <!-- Prediction -->
+              @if (data()!.answer.prediction) {
+                <div class="section-anim" style="animation-delay: 0.05s">
+                  <app-prediction-card [text]="data()!.answer.prediction" />
+                </div>
+              }
+
+              <!-- Win Probability -->
+              @if (hasWinProb()) {
+                <div class="section-anim" style="animation-delay: 0.15s">
+                  <app-win-probability-chart [prob]="data()!.answer.win_probability" />
+                </div>
+              }
+
+              <!-- Why -->
+              @if (data()!.answer.why.length > 0 || data()!.answer.why_raw) {
+                <div class="section-anim" style="animation-delay: 0.25s">
+                  <app-why-section
+                    [bullets]="data()!.answer.why"
+                    [rawText]="data()!.answer.why_raw" />
+                </div>
+              }
+
+              <!-- Verdict -->
+              @if (data()!.answer.verdict) {
+                <div class="section-anim" style="animation-delay: 0.35s">
+                  <app-verdict-card [text]="data()!.answer.verdict" />
+                </div>
+              }
+
+              <!-- Fallback: if nothing parsed, show raw -->
+              @if (!data()!.answer.prediction && !hasWinProb() && !data()!.answer.why.length && !data()!.answer.verdict) {
+                <div class="card raw-fallback">
+                  <pre class="raw-pre">{{ data()!.answer.raw }}</pre>
+                </div>
+              }
+            }
+
+          </div>
+        }
+
+        <!-- Raw tab -->
+        @if (activeTab() === 'raw') {
+          <div class="raw-panel fade-in">
+            <div class="raw-toolbar">
+              <span class="raw-label">Raw LLM Output</span>
+              <button class="btn btn-ghost copy-btn" (click)="copyRaw()">
+                {{ copied() ? '✓ Copied!' : '⎘ Copy' }}
+              </button>
+            </div>
+            <pre class="raw-content">{{ data()!.answer.raw }}</pre>
+          </div>
+        }
+
+      </section>
+    </div>
+  }
+</div>
